@@ -48,6 +48,18 @@ Now, applying the idea of LPS to the problem 1 above as follows:
 
 An application of the problem 1 above is that problem of finding the minimal number of characters inserted in the beginning of a string to make it a palindrome, as presented [here](https://www.interviewbit.com/problems/minimum-characters-required-to-make-a-string-palindromic/).
 
+### Longest common substring (LCS)
+
+Use DP to find the longest common substring of two strings. 
+
+Recursion: 
+```
+if A[i] == B[j]:
+    dp[i][j] = dp[i-1][j-1] + 1 
+else:
+    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+```
+
 ## 2. Graph/tree 
 
 ### Binary lifting: 
