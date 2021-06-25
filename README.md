@@ -83,7 +83,20 @@ lca(u,v, log, lev, dp):
         v = dp[v][j] 
     return dp[u][0]
 ```
+### Depth-First Search (DFS)  
+```
+def dfs(G): 
+    stack = []
+    stack.append(root) 
+    while len(stack):
+        node = stack.pop() 
+        visit(node) 
+        for u in node.children:
+            stack.append(node) 
+```
 
+How to store the path from the root to a target node in a tree/graph? We can use DFS. An modification of DFS for this is that 
+`stack` is a collection of `[node, path]` where `path` stores the path from the root to the parent of `node`. An example: [Path To Given Node](https://www.interviewbit.com/old/problems/path-to-given-node/) problem in InterviewBit. 
 ## 3. Dynamic Programming 
 
 ### Knapsack problem
