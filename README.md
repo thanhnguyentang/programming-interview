@@ -156,7 +156,12 @@ Two key operations in a min-heap: `insert`, `extract_min`
 ## 1. Big-O 
 @TODO: FILL IN
 
-## 2. Dynamic Programming 
+## 2. Bottom-Up vs Top-Down Approach 
+Imagine you look into a house, either from top to down outside the house or from bottom to up inside the house 
+* Top-Down (a.k.a. *reverse engineering*): Start with a general approach, then break down it into parts with more details 
+* Bottom-Up: Start with detailed (fundamental) elements and build up from there a more complex system. For example, object-oriented programming is bottom-up as it starts with objects and then build up complex classes from there. 
+
+## 3. Dynamic Programming 
 
 ### Knapsack problem
 
@@ -165,7 +170,7 @@ Given n items, each has its own weights and values. Which subset of elements to 
 
 A similar question is which subset of elements to be put into a knapsack such that the number of elements is minimized while the total value is equal to a certain value. 
 
-## 3. Bit Manipulation 
+## 4. Bit Manipulation 
 
 * Left shift: `a << i` is equivalent to `a 2^i` 
 * Right shift: `a >> i` is equivalent to `a // 2^i` 
@@ -176,4 +181,4 @@ A similar question is which subset of elements to be put into a knapsack such th
 * `x ^ 1 = ~x`
 * `x ^ 0 = x` 
 
-## 4. Dijkstra's Algorithm 
+## 5. Dijkstra's Algorithm 
