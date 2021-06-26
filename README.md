@@ -6,8 +6,7 @@
 A palindrome string is a string that does not change when its characters are reversed. For example `abcba` is a palindrome but `abcbad` is not. 
 Checking if a string is a palindome is straightforward: iterate over all characters and compare `A[i]` with `A[n-1-i]` which takes `O(n)` time. 
 
-#### Problem 1 
-Given a string `A`, find the length of the longest prefix of `A` that is a palindome. 
+* **Example**: Given a string `A`, find the length of the longest prefix of `A` that is a palindome. 
 
 A brutal force solution iterates over all possible prefixes of `A` and check if each prefix is a palindome. This takes `O(n^2)` time. There is a data structure that can solve this problem in `O(n)` time using [**LPS (longest prefix-suffix) array**](https://www.youtube.com/watch?v=tWDUjkMv6Lc). In particular, given an array `B`, `LPS` of `B` has the same length of `B` where 
 > `LPS[i]` is the length of the longest proper prefix of `B[0:i+1]` that is also a proper suffix. For example, if `B = 'abca'`, then `LPS = [0,0,0,1]`. Constructing LPS takes `O(n)`. 
@@ -46,13 +45,12 @@ Now, applying the idea of LPS to the problem 1 above as follows:
   *  `LPS[-1]` is the length of the longest prefix of `A` that is a palindome
 
 
-An application of the problem 1 above is that problem of finding the minimal number of characters inserted in the beginning of a string to make it a palindrome, as presented [here](https://www.interviewbit.com/problems/minimum-characters-required-to-make-a-string-palindromic/).
+An application of the example above is that problem of finding the minimal number of characters inserted in the beginning of a string to make it a palindrome, as presented [here](https://www.interviewbit.com/problems/minimum-characters-required-to-make-a-string-palindromic/).
 
 ### Longest common substring (LCS)
 
-Use DP to find the longest common substring of two strings. 
-
-Recursion: 
+The **Longest common substring** (LCS) uses Dynamic Programming to find the longest common substrings of two strings. 
+Let `dp[i][j]` be the LCS of `A[:i+1]` and `B[:j+1]`, the recursion for `dp` is: 
 ```
 if A[i] == B[j]:
     dp[i][j] = dp[i-1][j-1] + 1 
@@ -63,20 +61,26 @@ else:
 ## 2. Graph/tree 
 
 ### Binary lifting: 
-dp[i][j]: the 2^j-th parent of node i in a bidirectional graph 
+Given a graph/tree, **Binary Lifting** is a dynamic programming approach that stores the `2^j-th` ancesstor of node `i` into `dp[i][j]`.
+**Lowest Common Ancestor** (LCA) is a very useful algorithm that leverages the idea of binary lifting. We will demonstrate LCA in the following. 
+Let `lev[i]` be the level of node `i`. Here we use the convention that the root has the lowest level.
 
-LCA: Lowest Common Ancestor 
+Given two nodes `u` and `v`. If they are not at the same level, we move up the higher-level node to its ancesstor of the same level as the other node. 
+This moving-up works as follows: iterate over all the level range in an ascending order to find the highest number of levels (in the powers of `2`) we could move up the higher-level node to a position that is just below the level of the other node. When we keep iterate the level futher in an ascending order, it guarantees to move up the higher-level node to the same level as the other node. 
+
+When two nodes have the samle level, check if they are identical. If so, the initial lower-level node is the LCA. If not, we move up these nodes until 
+they reach the lowest level on which they are different. The idea for this moving-up is similar to that in the previous paragraph. After that, just move up one level and we get the LCA. 
 
 ```
 lca(u,v, log, lev, dp):
-  if u > v:
-    u,v = v,u
+    if lev[u] >= lev[v]:
+        u,v = v,u
     for j in range(log, -1,-1):
       if (lev[v] - 2**j) >= lev[u]: 
         v = dp[v][j]
-        
+
     if v == u:
-      return v 
+      return v
     for j in range(log,-1,-1):
       if dp[u][j] != dp[v][j]:
         u = dp[u][j] 
@@ -84,6 +88,8 @@ lca(u,v, log, lev, dp):
     return dp[u][0]
 ```
 ### Depth-First Search (DFS)  
+
+DFS searchs all the ways down the depth before moving to the next branch. It uses `stack` to implement the bread-first direction. 
 ```
 def dfs(G): 
     stack = []
@@ -97,6 +103,14 @@ def dfs(G):
 
 How to store the path from the root to a target node in a tree/graph? We can use DFS. An modification of DFS for this is that 
 `stack` is a collection of `[node, path]` where `path` stores the path from the root to the parent of `node`. An example: [Path To Given Node](https://www.interviewbit.com/old/problems/path-to-given-node/) problem in InterviewBit. 
+
+### Trie 
+The name `trie` is from ReTRIeval. A Trie, a.k.a. **prefix tree**, is a tree data structure that comes up a lot in programming interview. Each node of a Trie is a character and each path down the trie represents a word. Tries are good for **quick prefix lookups**
+
+A trie can check if a string is a valid prefix of a word in `O(k)` time where `k` is the lenght of the string.
+
+* **Example**: ([Maximum Xor between two arrays](https://www.interviewbit.com/old/problems/xor-between-two-arrays/)) Given two integer array `A` and `B`, pick one element from each array such that their xor is maximum.
+
 ## 3. Dynamic Programming 
 
 ### Knapsack problem
