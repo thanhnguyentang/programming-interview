@@ -120,8 +120,20 @@ A trie can check if a string is a valid prefix of a word in `O(k)` time where `k
 
 * **Example**: ([Maximum Xor between two arrays](https://www.interviewbit.com/old/problems/xor-between-two-arrays/)) Given two integer array `A` and `B`, pick one element from each array such that their xor is maximum.
 
-## Min Heaps 
-FILL IN 
+## Min-Heaps 
+
+A min-heap is a *complete* binary tree (all the levels of the tree except for possibly the last one are totally fullfiled; if the last level is not complete, it is filled from the left to right). The value of each node in a min-heap does not exceed the value of any of its descendant. Thus, the minimum value is at the root of a min-heap. An example of a min-heap is as follows. 
+
+```
+       1
+     /   \
+    2     3 
+   / \   
+  4   5   
+
+```
+
+Two key operations in a min-heap: `insert`, `extract_min`
 
 # B. Algorithms
 
