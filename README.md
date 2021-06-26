@@ -1,6 +1,11 @@
 # programming-interview
 
-## 1. Strings 
+# A. Data Structures 
+
+## 1. Arrays 
+@TODO: FILL IN
+
+## 2. Strings
 
 ### Longest Prefix-Suffix (LPS)
 First, let us consider the following basic problem: 
@@ -56,7 +61,14 @@ else:
     dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 ```
 
-## 2. Graph/tree 
+## 3. Linked Lists 
+
+## 4. Stacks and Queues 
+
+# P
+## 4. Stacks and Queues
+
+## 5. Trees and Graphs
 
 ### Binary lifting: 
 Given a graph/tree, **Binary Lifting** is a dynamic programming approach that stores the `2^j-th` ancesstor of node `i` into `dp[i][j]`.
@@ -109,7 +121,12 @@ A trie can check if a string is a valid prefix of a word in `O(k)` time where `k
 
 * **Example**: ([Maximum Xor between two arrays](https://www.interviewbit.com/old/problems/xor-between-two-arrays/)) Given two integer array `A` and `B`, pick one element from each array such that their xor is maximum.
 
-## 3. Dynamic Programming 
+## Min Heaps 
+FILL IN 
+
+# B. Algorithms
+
+## 1. Dynamic Programming 
 
 ### Knapsack problem
 
@@ -118,7 +135,7 @@ Given n items, each has its own weights and values. Which subset of elements to 
 
 A similar question is which subset of elements to be put into a knapsack such that the number of elements is minimized while the total value is equal to a certain value. 
 
-## 4. Bit Manipulation 
+## 2. Bit Manipulation 
 
 * Left shift: `a << i` is equivalent to `a 2^i` 
 * Right shift: `a >> i` is equivalent to `a // 2^i` 
@@ -128,3 +145,5 @@ A similar question is which subset of elements to be put into a knapsack such th
 * Create `mask = 11...1011..1` with `i` `1s` at the tail: `mask = ~(1 << i)`
 * `x ^ 1 = ~x`
 * `x ^ 0 = x` 
+
+## 3. Dijkstra's Algorithm 
