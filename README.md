@@ -2,20 +2,19 @@
 
 ## 1. Strings 
 
-### Palindrome 
-A palindrome string is a string that does not change when its characters are reversed. For example `abcba` is a palindrome but `abcbad` is not. 
-Checking if a string is a palindome is straightforward: iterate over all characters and compare `A[i]` with `A[n-1-i]` which takes `O(n)` time. 
+### Longest Prefix-Suffix (LPS)
+First, let us consider the following basic problem: 
 
-* **Example**: Given a string `A`, find the length of the longest prefix of `A` that is a palindome. 
+* **Example 1**: Given a string `A`, find the length of the longest proper prefix of `A` that is also a proper suffix. Note that the proper prefix and the proper suffix must not overlap. 
 
-A brutal force solution iterates over all possible prefixes of `A` and check if each prefix is a palindome. This takes `O(n^2)` time. There is a data structure that can solve this problem in `O(n)` time using [**LPS (longest prefix-suffix) array**](https://www.youtube.com/watch?v=tWDUjkMv6Lc). In particular, given an array `B`, `LPS` of `B` has the same length of `B` where 
-> `LPS[i]` is the length of the longest proper prefix of `B[0:i+1]` that is also a proper suffix. For example, if `B = 'abca'`, then `LPS = [0,0,0,1]`. Constructing LPS takes `O(n)`. 
+A brutal force solution would iterate over all possible proper prefixes of `A` and check if each of the proper prefix is also a proper suffice. Though this brutal force solution takes `O(n)`, there is a dynamic programming solution that is very helpful for many other string problems. This solution is called [`LPS`](https://www.youtube.com/watch?v=tWDUjkMv6Lc). 
+
+Given a string `A`, we can construct a data structure `LPS` of length `n` in `O(n)` time where `LPS[i]` is the length of the longest proper prefix of `A[:i+1]` that is also a proper suffix (and the proper prefix and the proper suffix do not overlap). For example, if `A = 'abca'`, then `LPS = [0,0,0,1]`. 
+The idea for `LPS` is based on dynamic programming where the key question is that given `j = LPS[i-1]`, how to compute `LPS[i]`? 
 
 ```
 def LPS(A): 
-    """
-    Dynamic programming 
-    
+    """    
     Key idea: given j = lps[i-1], how to compute lps[i]? 
     """
     lps = [0] * len(A) 
@@ -37,20 +36,19 @@ lps = LPS(A)
 print(lps)
 ```
 
+* **Example 2 (Palindrome)**: A palindrome is a string that does not change when its characters are reversed. For example `abcba` is a palindrome but `abcbad` is not. Given a string `A`, find the length of the longest prefix of `A` that is a palindome. 
 
-Now, applying the idea of LPS to the problem 1 above as follows: 
+A brutal force solution iterates over all possible prefixes of `A` and check if each prefix is a palindome. This takes `O(n^2)` time. Using `LPS`, we can reduce to `O(n)` time. The key ideas are as follows
 
-  * `B = A + '$' + A[::-1] # use the symmetry of palindome`
-  *  Construct LPS of `B`
-  *  `LPS[-1]` is the length of the longest prefix of `A` that is a palindome
+  *  Let `B = A + '$' + A[::-1]`. By the symmetry of palindome, the length of the longest prefix of `A` that is also a palindome must be the length of the longest proper prefix of `B` that is also a proper suffice. 
+  *  Then, just solve `LPS` for `B` and return `LPS[-1]`
 
+* **Example 3 ([Make A String Palindrome](https://www.interviewbit.com/problems/minimum-characters-required-to-make-a-string-palindromic/))**: Given an string `A`. The only operation allowed is to insert characters in the beginning of the string. Find how many minimum characters are needed to be inserted to make the string a palindrome string.
 
-An application of the example above is that problem of finding the minimal number of characters inserted in the beginning of a string to make it a palindrome, as presented [here](https://www.interviewbit.com/problems/minimum-characters-required-to-make-a-string-palindromic/).
+The key idea to solve the problem above is that a string `A` can be decomposed into two parts where the first part is the longest prefix of `A` that is also a palindrome. Thus, by the symmetry of palindrom, to make `A` a palindrome, we only need to insert the reversed version of the second part of `A` (in the beginning of `A`). 
 
-### Longest common substring (LCS)
-
-The **Longest common substring** (LCS) uses Dynamic Programming to find the longest common substrings of two strings. 
-Let `dp[i][j]` be the LCS of `A[:i+1]` and `B[:j+1]`, the recursion for `dp` is: 
+### Longest Common Substring (LCS)
+Another useful data structure for strings is the **Longest common substring** (LCS), the longest common substrings (not necessarily consecutive characters) of two strings. This `LCS` data structure can be constructed using Dynamic Programming. In particular, let `dp[i][j]` be the LCS of `A[:i+1]` and `B[:j+1]`, how to compute `dp[i][j]` given the previous values in the DP table? The key idea is that if `A[i] = B[j]`, this character must be counted in the longest common substring; otherwise, there are two possible cases: (i) `A[i]` is not included in the longest common substring, (ii) `B[j]` is not included in the longest common substring. Thus these operations are translated in the following recursion:
 ```
 if A[i] == B[j]:
     dp[i][j] = dp[i-1][j-1] + 1 
