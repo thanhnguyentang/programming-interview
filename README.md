@@ -67,9 +67,16 @@ else:
 
 ### Priority Queues 
 
+A priority queue is an *abstract* queue that stores objects with their associated keys. The keys determine the priority. For example, a min priority queue gives a higher priority to an object with a lower key. A priority queue supports two main operations: `insert` an object with key and `remove_min` the object with the minimum key. Think of it as an ordinary queue but now an element is extracted based on its priority rather than its recency. 
+
+* A **min-heap** implementation of a priority queue takes `O(log n)` time for both `insert` and `remove_min`.  
+* An **array** implementation of a priority queue takes `O(n)` time for both `insert` and `remove_min`.
+
+
 ## 5. Trees and Graphs
 
-### Binary lifting: 
+### Binary Lifting 
+
 Given a graph/tree, **Binary Lifting** is a dynamic programming approach that stores the `2^j-th` ancesstor of node `i` into `dp[i][j]`.
 **Lowest Common Ancestor** (LCA) is a very useful algorithm that leverages the idea of binary lifting. We will demonstrate LCA in the following. 
 Let `lev[i]` be the level of node `i`. Here we use the convention that the root has the lowest level.
@@ -120,9 +127,9 @@ A trie can check if a string is a valid prefix of a word in `O(k)` time where `k
 
 * **Example**: ([Maximum Xor between two arrays](https://www.interviewbit.com/old/problems/xor-between-two-arrays/)) Given two integer array `A` and `B`, pick one element from each array such that their xor is maximum.
 
-## Min-Heaps 
+## Min Heaps 
 
-A min-heap is a *complete* binary tree (all the levels of the tree except for possibly the last one are totally fullfiled; if the last level is not complete, it is filled from the left to right). The value of each node in a min-heap does not exceed the value of any of its descendant. Thus, the minimum value is at the root of a min-heap. An example of a min-heap is as follows. 
+A min heap is a *complete* binary tree (all the levels of the tree except for possibly the last one are totally fullfiled; if the last level is not complete, it is filled from the left to right). The value of each node in a min-heap does not exceed the value of any of its descendant. Thus, the minimum value is at the root of a min-heap. An example of a min-heap is as follows. 
 
 ```
        1
@@ -134,9 +141,9 @@ A min-heap is a *complete* binary tree (all the levels of the tree except for po
 ```
 
 ### Representation 
-A common representation for a min-heap is arrays: `A[0]` is the root, two children of `A[i]` are `A[2*i+1]` and `A[2*i+2]`. Thus the parent of `A[j]` is `A[(j-1)//2]`. 
+A common representation for a min heap is arrays: `A[0]` is the root, two children of `A[i]` are `A[2*i+1]` and `A[2*i+2]`. Thus the parent of `A[j]` is `A[(j-1)//2]`. 
 
-### Min-heap construction from an array: `O(n)`
+### Min Heap Construction From An Array: `O(n)`
 First, the array represents a complete binary tree. Now we will `heapify` all nodes of the complete binary tree in reverse level order using a top-down approach. The process is as follows: Iterate over all non-leaf nodes in reverse order, starting from the last non-leaf node at index `total_node // 2 - 1`. At each of this non-leaf node, `heapify` the subtree rooted at this node to make the subtree respect the heap property. The heapification works as follows: swap the node with its child whose value is smaller than the node's value, then recursively heapify the subtree rooted at the swapped child node. 
 
 
@@ -145,11 +152,11 @@ This construction beautifully takes an optimal time of `O(n)`. Let the height of
 
 ### `insert` and `extract_min`: `O(log n)`
 
-Two key operations in a min-heap: `insert`, `extract_min`
+Two key operations in a min heap: `insert`, `extract_min`
 
-* `insert`: Insert a new node into a min-heap takes `O(log n)` time. First, we fill the min-heap with the node on the last level so that all nodes on the last level are filled from left to right. This is to respect the `shape property` of a min-heap. Then, we "fix" the tree to respect the `heap property` as follows: if the node has a smaller value than its parent, we swap these two nodes. We repeat this process until we could not swap any more. 
+* `insert`: Insert a new node into a min heap takes `O(log n)` time. First, we fill the min heap with the node on the last level so that all nodes on the last level are filled from left to right. This is to respect the `shape property` of a min heap. Then, we "fix" the tree to respect the `heap property` as follows: if the node has a smaller value than its parent, we swap these two nodes. We repeat this process until we could not swap any more. 
 
-* `extract_min`: Poping up the minimum value of a min-tree (i.e., extract and remove the root) takes `O(log n)` time. First, we replace the root of the min-heap with its last element to respect the shape property. Then, we buble down this element by swapping it with one of its children until the heap property is restored. 
+* `extract_min`: Poping up the minimum value of a min heap (i.e., extract and remove the root) takes `O(log n)` time. First, we replace the root of the min heap with its last element to respect the shape property. Then, we buble down this element by swapping it with one of its children until the heap property is restored. 
 
 # B. Algorithms
 
