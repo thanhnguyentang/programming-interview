@@ -65,8 +65,7 @@ else:
 
 ## 4. Stacks and Queues 
 
-# P
-## 4. Stacks and Queues
+### Priority Queues 
 
 ## 5. Trees and Graphs
 
@@ -126,7 +125,10 @@ FILL IN
 
 # B. Algorithms
 
-## 1. Dynamic Programming 
+## 1. Big-O 
+@TODO: FILL IN
+
+## 2. Dynamic Programming 
 
 ### Knapsack problem
 
@@ -135,7 +137,7 @@ Given n items, each has its own weights and values. Which subset of elements to 
 
 A similar question is which subset of elements to be put into a knapsack such that the number of elements is minimized while the total value is equal to a certain value. 
 
-## 2. Bit Manipulation 
+## 3. Bit Manipulation 
 
 * Left shift: `a << i` is equivalent to `a 2^i` 
 * Right shift: `a >> i` is equivalent to `a // 2^i` 
@@ -146,4 +148,4 @@ A similar question is which subset of elements to be put into a knapsack such th
 * `x ^ 1 = ~x`
 * `x ^ 0 = x` 
 
-## 3. Dijkstra's Algorithm 
+## 4. Dijkstra's Algorithm 
