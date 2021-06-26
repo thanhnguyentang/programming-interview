@@ -133,7 +133,23 @@ A min-heap is a *complete* binary tree (all the levels of the tree except for po
 
 ```
 
+### Representation 
+A common representation for a min-heap is arrays: `A[0]` is the root, two children of `A[i]` are `A[2*i+1]` and `A[2*i+2]`. Thus the parent of `A[j]` is `A[(j-1)//2]`. 
+
+### Min-heap construction from an array: `O(n)`
+First, the array represents a complete binary tree. Now we will `heapify` all nodes of the complete binary tree in reverse level order using a top-down approach. The process is as follows: Iterate over all non-leaf nodes in reverse order, starting from the last non-leaf node at index `total_node // 2 - 1`. At each of this non-leaf node, `heapify` the subtree rooted at this node to make the subtree respect the heap property. The heapification works as follows: swap the node with its child whose value is smaller than the node's value, then recursively heapify the subtree rooted at the swapped child node. 
+
+
+This construction beautifully takes an optimal time of `O(n)`. Let the height of a node at a level `l` is `log n - l` (i.e., the nodes on the bottommost level has height `0`). Heapifying a node at height `h` takes `O(h)` times. At height `h`, there are `(2^ logn)/ 2^h <= n / 2^h` nodes (the bottommost level has `2^(log n)` nodes). Thus, the total time complexity is `$sum_{i=1}^{log n} h  n / 2^n = O(n)$ `.
+
+
+### `insert` and `extract_min`: `O(log n)`
+
 Two key operations in a min-heap: `insert`, `extract_min`
+
+* `insert`: Insert a new node into a min-heap takes `O(log n)` time. First, we fill the min-heap with the node on the last level so that all nodes on the last level are filled from left to right. This is to respect the `shape property` of a min-heap. Then, we "fix" the tree to respect the `heap property` as follows: if the node has a smaller value than its parent, we swap these two nodes. We repeat this process until we could not swap any more. 
+
+* `extract_min`: Poping up the minimum value of a min-tree (i.e., extract and remove the root) takes `O(log n)` time. First, we replace the root of the min-heap with its last element to respect the shape property. Then, we buble down this element by swapping it with one of its children until the heap property is restored. 
 
 # B. Algorithms
 
