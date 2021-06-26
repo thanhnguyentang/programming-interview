@@ -119,3 +119,14 @@ Knapsack problem is a combinatoric optimization that can be solved by dynamic pr
 Given n items, each has its own weights and values. Which subset of elements to be put into a knapsack such that the total value is maximized while the total weight does not exceed a certain value? 
 
 A similar question is which subset of elements to be put into a knapsack such that the number of elements is minimized while the total value is equal to a certain value. 
+
+## 4. Bit Manipulation 
+
+* Left shift: `a << i` is equivalent to `a 2^i` 
+* Right shift: `a >> i` is equivalent to `a // 2^i` 
+* Negative numbers in a `N`-bit representation: `1` followed by the bit representation of `2^(N-1) - k`. For example, for `N=4`, `-2 = 1110` as `6 = 110`. 
+* Create `mask = 0...0 1 1 ... 1` with `i` `1s` at the tail: `mask = (1 << i) - 1`
+* Create `mask = 11...10...0` with `i` `0s` at the tail: `mask = -1 << i` 
+* Create `mask = 11...1011..1` with `i` `1s` at the tail: `mask = ~(1 << i)`
+* `x ^ 1 = ~x`
+* `x ^ 0 = x` 
