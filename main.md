@@ -1,9 +1,9 @@
-# programming-interview
+# Programming Interview Review
 
 # A. Data Structures 
 
 ## 1. Arrays 
-@TODO: FILL IN
+An array allows `O(1)` indexing (and the memory in array are contiguous) but adding a new element takes `O(n)` time. 
 
 ## 2. Strings
 
@@ -62,16 +62,41 @@ else:
 ```
 
 ## 3. Linked Lists 
+A linked list is a list of objects that are linked sequentially one after another. Think of a linked list as an array with a dynamic size. 
+
+| Operation | Description | Time |
+| --------- | ----------- | ---- | 
+| `insert`  | Insert at the head | `O(1)` | 
+| `remove`  | Remove head | `O(1)` | 
+| `search`  | Search for an element | `O(n)` |
 
 ## 4. Stacks and Queues 
+
+### Stacks 
+
+A stack is a LIFO (last-in-first-out) data structure. We can use `list` in Python to implement the behavior of a stack. Let `stack` be a Python list that represents a stack, we have
+    * `pop()`: `stack.pop()`   
+    * `push(x)`: `stack.append(x)` 
+    * `isEmpty()`: `len(stack)`  
+    * `peek()`: `stack[-1]`  
+    
+### Queues 
+A queue is a FIFO (first-in-first-out) data structure. We can use `list` in Python to implement the behaviour of a queue. Let `queue` be a Python list that represents a queue, we have  
+
+    * `pop()`: `queue.pop(0)` 
+    * `push(x)`: `queue.append(x)`
+    * `isEmpty()`: `len(queue)` 
+    * `peek()`: `queue[0]`
 
 ### Priority Queues 
 
 A priority queue is an *abstract* queue that stores objects with their associated keys. The keys determine the priority. For example, a min priority queue gives a higher priority to an object with a lower key. A priority queue supports two main operations: `insert` an object with key and `remove_min` the object with the minimum key. Think of it as an ordinary queue but now an element is extracted based on its priority rather than its recency. 
 
-* A **min-heap** implementation of a priority queue takes `O(log n)` time for both `insert` and `remove_min`.  
-* An **array** implementation of a priority queue takes `O(n)` time for both `insert` and `remove_min`.
-
+| Implementation| `insert` | `extract_min` | `decrease_key` |
+| ------------- | -------- | ------------- | -------------- |
+| Array         | `O(1)`   | `O(n)`        | `O(n)`         |
+| Linked List   | `O(n)`   | `O(1)`        | `O(n)`         |
+| Min Heap      | `O(log n)`| `O(log n)`   | `O(log n)`     |
 
 ## 5. Trees and Graphs
 
@@ -103,22 +128,6 @@ lca(u,v, log, lev, dp):
         v = dp[v][j] 
     return dp[u][0]
 ```
-### Depth-First Search (DFS)  
-
-DFS searchs all the ways down the depth before moving to the next branch. It uses `stack` to implement the bread-first direction. 
-```
-def dfs(G): 
-    stack = []
-    stack.append(root) 
-    while len(stack):
-        node = stack.pop() 
-        visit(node) 
-        for u in node.children:
-            stack.append(node) 
-```
-
-How to store the path from the root to a target node in a tree/graph? We can use DFS. An modification of DFS for this is that 
-`stack` is a collection of `[node, path]` where `path` stores the path from the root to the parent of `node`. An example: [Path To Given Node](https://www.interviewbit.com/old/problems/path-to-given-node/) problem in InterviewBit. 
 
 ### Trie 
 The name `trie` is from ReTRIeval. A Trie, a.k.a. **prefix tree**, is a tree data structure that comes up a lot in programming interview. Each node of a Trie is a character and each path down the trie represents a word. Tries are good for **quick prefix lookups**
@@ -158,10 +167,21 @@ Two key operations in a min heap: `insert`, `extract_min`
 
 * `extract_min`: Poping up the minimum value of a min heap (i.e., extract and remove the root) takes `O(log n)` time. First, we replace the root of the min heap with its last element to respect the shape property. Then, we buble down this element by swapping it with one of its children until the heap property is restored. 
 
+## 6. Hash Tables 
+
+A hash table is a data structure that maps keys to values for efficient lookup. In Python, a hash table can be implemented using Python dictionary. 
+
 # B. Algorithms
 
 ## 1. Big-O 
-@TODO: FILL IN
+
+### Big-O Time 
+
+A recursive call often takes `O(branches ^ depth)` time. 
+
+### Big-O Space 
+
+The space complexity is the space that takes at a given point of time during the execution. A key idea to determine Big-O Space is to check if a call is invoked *sequentially* or *simultaneously*. A recurisve call that recurses to depth `n` will construct a **memory stack** of depth `n` which takes `O(n)` space. 
 
 ## 2. Bottom-Up vs Top-Down Approach 
 Imagine you look into a house, either from top to down outside the house or from bottom to up inside the house 
@@ -205,6 +225,46 @@ We iterate through all nodes in `remaining` until it is empty and do the followi
 When `remaining` is empty, we have updated `path_weight` for all nodes, thus the shortest paths have been computed for all nodes. We then resconstruct the shortest path from `a` to `i` using `previous`. 
 
 ### Time Complexity of Dijkstra's Algorithm 
-If we implement priority queue using min heap, each `remove_min` call takes `O(log v)` time. There are `v` such calls, so the total time of calling `remove_min` is `O(v log v)`. In addition, for each edge, we need to update `path_weight` which in turn requires us to update `remaining` to maintain the priority queue property (`decrease_key` in min heap). This takes `O(e log v)` times. Thus, the total runtime is `O((v + e) log v)`. This is good if the graph is sparse (i.e., `e << v^2`). If the graph is dense, the array implementation of priority queue may make the Dijkstra's algorithm faster. 
+If we implement priority queue using min heap, each `remove_min` call takes `O(log v)` time. There are `v` such calls, so the total time of calling `remove_min` is `O(v log v)`. In addition, for each edge, we need to update `path_weight` which in turn requires us to update `remaining` to maintain the priority queue property (`decrease_key` in min heap). This takes `O(e log v)` times. Thus, the total runtime is `O((v + e) log v)`. 
 
-In the array implementation of priority queue, each `remove_min` call takes `O(v)` time, and there are `v` such calls, so the total time of `remove_min` is `O(v^2)`.  
+## 6. Search 
+
+### Binary Search 
+A binary search works only for a *sorted* array. Each iteration iteratively shrink the search region by a half by comparing the target value with a `boundary` value `A[n//2]`. A binary search takes `O(log n)` time. 
+
+### Breadth-First Search 
+
+A breadth-first search (BFS) search a graph in level by level. It uses *queue* to implement this behaviour. 
+
+```
+def bfs(G):
+    queue = []
+    queue.append(root)
+    while len(queue): 
+        node = queue.pop(0)
+        visit(node)
+        for u in node.adjacence: 
+            queue.append(u)
+```
+
+### Depth-First Search 
+
+DFS searchs all the ways down the depth before moving to the next branch. It uses `stack` to implement the bread-first direction. 
+```
+def dfs(G): 
+    stack = []
+    stack.append(root) 
+    while len(stack):
+        node = stack.pop() 
+        visit(node) 
+        for u in node.adjacence:
+            stack.append(node) 
+```
+
+How to store the path from the root to a target node in a tree/graph? We can use DFS. An modification of DFS for this is that 
+`stack` is a collection of `[node, path]` where `path` stores the path from the root to the parent of `node`. An example: [Path To Given Node](https://www.interviewbit.com/old/problems/path-to-given-node/) problem in InterviewBit. 
+
+## 7. Sorting 
+
+###  Merge Sort `O(n log n)`
+### Quick Sort `O(n log n)`
