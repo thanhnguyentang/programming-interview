@@ -189,4 +189,4 @@ A similar question is which subset of elements to be put into a knapsack such th
 * `x ^ 0 = x` 
 
 ## 5. Dijkstra's Algorithm 
-@TODO: FILL IN 
+Dijkstra's algorithm finds the shortest path between two vertices in a *weighted directed graph* (with possibly a cycle). Let us consider a graph `G(v,e)` with `v` vertices and `e` edges where each edge has postive weight. Note that `e <= v(v-1)`
