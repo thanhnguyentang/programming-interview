@@ -192,3 +192,19 @@ A similar question is which subset of elements to be put into a knapsack such th
 Dijkstra's algorithm finds the shortest path between two vertices in a *weighted directed graph* (with possibly a cycle). Let us consider a graph `G(v,e)` with `v` vertices and `e` edges where each edge has postive weight. Note that `e <= v(v-1)`. For example, consider the following WDG: 
 
 ![WDG](/figs/WDG2.png)
+
+The Dijkstra's algorithm uses Dynamic Programming to precompute information. Assume that we are asked to find the shortest path from `a` to `i`, we will find the shortest paths from `a` to every other vertices. 
+* `path_weight[node]`: maps each node to the total weight of the shortest path (from `a` to this node). We initialize it to `infty` for all nodes except for node `a`, we initialize to `0`.
+* `previous[node]`: maps each node to the previous node in. the shortest path. This is to trace back the shortest path from a target node back to node `a`. 
+* `remaining[node]`: a priority queue for all nodes with priorities defined in `path_weight`. 
+
+We iterate through all nodes in `remaining` until it is empty and do the following: 
+* Pop up (i.e., extract and remove) the node in `remaining` with the lowest value. We call this node `n`
+* For each adjacent node `x` of node `n`, update `path_weight[x]` to be the minimum between the old `path_weight[x]` and `path_weight[n] + weight(n,x)`. Also update `previous[x] = n`. 
+
+When `remaining` is empty, we have updated `path_weight` for all nodes, thus the shortest paths have been computed for all nodes. We then resconstruct the shortest path from `a` to `i` using `previous`. 
+
+### Time Complexity of Dijkstra's Algorithm 
+If we implement priority queue using min heap, each `remove_min` call takes `O(log v)` time. There are `v` such calls, so the total time of calling `remove_min` is `O(v log v)`. In addition, for each edge, we need to update `path_weight` which in turn requires us to update `remaining` to maintain the priority queue property (`decrease_key` in min heap). This takes `O(e log v)` times. Thus, the total runtime is `O((v + e) log v)`. This is good if the graph is sparse (i.e., `e << v^2`). If the graph is dense, the array implementation of priority queue may make the Dijkstra's algorithm faster. 
+
+In the array implementation of priority queue, each `remove_min` call takes `O(v)` time, and there are `v` such calls, so the total time of `remove_min` is `O(v^2)`.  
