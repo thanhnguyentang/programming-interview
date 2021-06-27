@@ -169,7 +169,7 @@ Two key operations in a min heap: `insert`, `extract_min`
 
 ## 6. Hash Tables 
 
-A hash table is a data structure that maps keys to values for efficient lookup. In Python, a hash table can be implemented using Python dictionary. 
+A hash table is a data structure that maps keys to values for efficient lookup. In Python, a hash table can be implemented using Python dictionary. Do distinquish between two operations: `store` and `lookup` where `lookup` here means look up a key and its value from the hash table. Both operations take `O(1)` time. 
 
 # B. Algorithms
 
@@ -267,4 +267,11 @@ How to store the path from the root to a target node in a tree/graph? We can use
 ## 7. Sorting 
 
 ###  Merge Sort `O(n log n)`
+The idea of merge sort is that we divide an array into two halves, sorted each half and merge them together to form a sorted array. Merging two sorted subarrays take `O(n)` time. Merging `merge(arr, L, R)` works as follows: it iterates over `i,j,k` for `L`, `R`, and `arr`, updates `arr[k]` to either `L[i]` or `R[j]` depending on whether `L[i] < R[j]`, then increase `k` and `i` by one (if `L[i] < R[j]`) or `k` and `j` by one (if `R[j] < L[i]`). 
+
+The complexity of merge sort is `T(n)` where `T(n) = 2 T(n/2) + n`. This implies `T(n) = O(n log n)`. 
+
+The space complexity of merge sort is `O(n)`. We can infer the space complexity by recursion. Let `S(n)` be the space complexity of merge sort with input size `n`. Then, we have `S(n) = n + S(n/2)`, or `S(n) = O(n)`. 
+
 ### Quick Sort `O(n log n)`
+The idea of quick sort is that pick one pivot (commonly the last element) and partition the array such that 
