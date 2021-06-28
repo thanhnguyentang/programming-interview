@@ -293,3 +293,4 @@ def partition(arr,low,high):
     swap arr[i+1] and arr[high] 
     return (i+1)
 ```
+The space complexity of quick sort is `O(log n)`. 
