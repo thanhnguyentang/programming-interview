@@ -274,4 +274,22 @@ The complexity of merge sort is `T(n)` where `T(n) = 2 T(n/2) + n`. This implies
 The space complexity of merge sort is `O(n)`. We can infer the space complexity by recursion. Let `S(n)` be the space complexity of merge sort with input size `n`. Then, we have `S(n) = n + S(n/2)`, or `S(n) = O(n)`. 
 
 ### Quick Sort `O(n log n)`
-The idea of quick sort is that pick one pivot (commonly the last element) and partition the array such that 
+The idea of quick sort is that pick one pivot (commonly the last element) and `partition` the array such that all the elements that are smaller than the pivot move to the left of the pivot and the other elements on the right of the pivot. 
+```
+def quickSort(arr, low, high):
+    pi = partition(arr, low, high) 
+    quickSort(arr, low, pi-1)
+    quickSort(arr, pi+1, high)
+```
+where `partition` iterates over the array and move all the smaller-than-pivot elements in that order to the left. 
+```
+def partition(arr,low,high):
+    pivot = arr[high] 
+    i = low - i 
+    for j in range(low, high):
+        if arr[j] < pivot:
+            i++ 
+            swap arr[i] and arr[j]
+    swap arr[i+1] and arr[high] 
+    return (i+1)
+```
