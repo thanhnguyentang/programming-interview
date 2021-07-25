@@ -1,5 +1,7 @@
 # Programming Interview Review
 
+A review for programming sections I had in the interviews with Deepmind. 
+
 # A. Data Structures 
 
 ## 1. Arrays 
